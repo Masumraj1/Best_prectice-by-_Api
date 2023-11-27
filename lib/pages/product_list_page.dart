@@ -1,26 +1,32 @@
-import 'package:api_best_prectice/controller/product_controlers.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+// import 'package:api_best_prectice/controller/product_controlers.dart';
+// import 'package:flutter/material.dart';
+// import 'package:get/get.dart';
+//
+// import '../screen/UserScreen.dart';
+//
+//
+// class ProductListPage extends StatefulWidget {
+//
+//    ProductListPage({super.key});
+//
+//   @override
+//   State<ProductListPage> createState() => _ProductListPageState();
+// }
+//
+// class _ProductListPageState extends State<ProductListPage> {
+//
+//
+//
+//
+//
+//     @override
+//     Widget build(BuildContext context) {
+//     return Scaffold(
+//
+//     );
+//   }
+// }
+//
 
-class ProductListPage extends StatelessWidget {
 
-  ProductControler controler=Get.put(ProductControler());
-   ProductListPage({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Product list'),),
-      body: ListView.builder(itemBuilder: (context,index){
-          var product =controler.ProductList[index];
-          return ListTile(
-           title:Obx(() =>Text(product.name)),
-            subtitle:Obx(()=> Text(product.price.toString())),
-          );
-      },
-      itemCount: controler.ProductList.length,
-      ),
-
-    );
-  }
-}

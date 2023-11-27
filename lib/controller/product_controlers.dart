@@ -1,47 +1,34 @@
 import 'dart:convert';
 
-import 'package:api_best_prectice/constant/endpoint.dart';
-import 'package:api_best_prectice/models/product.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-
-import '../constant/urls.dart';
-
-class ProductControler extends GetxController {
-
-  var ProductList = <Product>[].obs;
+class ProductController extends GetxController{
+  var products = [].obs;
+  // RxBool isLoading = false.obs;
 
 
   @override
-  void onInit(){
+  void onInit() {
     super.onInit();
-    fetchProductList();
+    fetchProduct();
   }
+  Future fetchProduct() async{
+    try{
+      final url = Uri.parse("https://demo.alorferi.com/api/products");
 
+          var response = await http.get(url);
 
-  Future<void> fetchProductList() async {
-
-    try {
-      var url = Uri.parse("${Urls.apiServerBaseUrls}{Endpoint.products}" );
-
-      var response = await http.get(url);
-
-      if (response.statusCode == 200) {
-
-           Map<String,dynamic>dataMap=   jsonDecode(response.body);
-
-           List<dynamic>jsonList=dataMap['data'];
-
-           for (var element in jsonList) {
-             ProductList.value.add(Product(
-                 id: element['id'],
-                 name: element['name'],
-                 price: element['price']
-             ));
-           }
+      if(response.statusCode == 200){
+        Map productsData = jsonDecode(response.body);
+        products.value = productsData["data"];
+        // print("product fetch successful $products");
       }
-    }catch(e,s){
-      print('error:$e,strack trace:$s');
-    }
+
+      else{
+        print("product fact");
+      }
+    }catch(e){
+      print("error:masum error $e");
     }
   }
+}

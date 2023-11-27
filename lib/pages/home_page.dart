@@ -1,34 +1,41 @@
 import 'package:flutter/material.dart';
 
-class MyHomePage extends StatelessWidget {
+import '../screen/ProductScreen.dart';
+import '../screen/UserScreen.dart';
 
-  MyHomePage({super.key});
+class ProductListPage extends StatelessWidget {
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text('Product List'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-             ''
-            ),
+        appBar: AppBar(title: Text('User List'),centerTitle: true,),
+        body: Column(
+          children: [
+            Container(
+              margin: EdgeInsets.all(10),
+              child: Row(
+                children: [
+                  ElevatedButton(onPressed: (){
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) =>  UserScreen(),
+                      ),
+                    );
+                  }, child: Text('UserList')),
+                  ElevatedButton(onPressed: (){  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) =>  ProductScreen(),
+                    ),
+                  );}, child: Text('ProductList')),
+                  ElevatedButton(onPressed: (){}, child: Text('MyList'))
+                ],
+              ),
+            )
           ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: (){},
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+
+        )
+
     );
   }
 }
