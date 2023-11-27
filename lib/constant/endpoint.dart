@@ -1,4 +1,4 @@
-class Endpoint {
+class Endpoints {
   static const outhToken='/oauth/token';
   static const products='/api/products';
   static const myProduct='/api/my-products';

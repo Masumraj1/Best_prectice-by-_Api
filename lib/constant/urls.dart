@@ -1,3 +1,3 @@
 class Urls{
-  static const apiServerBaseUrls='https://demo.alorferi.com';
+  static const apiServerBaseUrl='https://demo.alorferi.com';
 }

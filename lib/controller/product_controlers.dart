@@ -2,8 +2,11 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+
+import '../constant/endpoint.dart';
+import '../constant/urls.dart';
 class ProductController extends GetxController{
-  var products = [].obs;
+  var productList = [].obs;
   // RxBool isLoading = false.obs;
 
 
@@ -14,13 +17,13 @@ class ProductController extends GetxController{
   }
   Future fetchProduct() async{
     try{
-      final url = Uri.parse("https://demo.alorferi.com/api/products");
+      var url = Uri.parse("${Urls.apiServerBaseUrl}${Endpoints.products}");
 
           var response = await http.get(url);
 
       if(response.statusCode == 200){
-        Map productsData = jsonDecode(response.body);
-        products.value = productsData["data"];
+        Map <String,dynamic>productsData = jsonDecode(response.body);
+        productList.value = productsData["data"];
         // print("product fetch successful $products");
       }
 

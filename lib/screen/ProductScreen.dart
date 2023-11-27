@@ -1,3 +1,5 @@
+import 'package:api_best_prectice/constant/urls.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -7,27 +9,93 @@ import '../controller/product_controlers.dart';
 
 class ProductScreen extends StatelessWidget {
   ProductScreen({super.key});
-  var controler = Get.put(ProductController());
 
+  var controler = Get.put(ProductController());
 
   @override
   void initState() {
-    // TODO: implement initState
     controler;
   }
+
   @override
   Widget build(BuildContext context) {
+    bool shouldLoadImage = true;
+
     return Scaffold(
-      body:   Obx(() => ListView.builder(
-        itemBuilder: (context,index){
-          var product =controler.products.value[index];
-          return ListTile(
-            title:Image.network(product['image'].toString()),
-            subtitle: Text(product['name']),
-          );
-        },
-        itemCount: controler.products.value.length,
-      ),),
-    );
+        drawer: Drawer(),
+        bottomNavigationBar: BottomNavigationBar(
+          items: [
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: "cart"),
+          ],
+        ),
+        appBar: AppBar(
+          title: Text('All Product'),
+          centerTitle: true,
+          backgroundColor: Colors.grey,
+        ),
+        body: Obx(() => Card(
+          child: GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                ),
+                itemBuilder: (contaxt, index) {
+                  var product = controler.productList.value[index];
+
+                  return Container(
+
+                    padding: EdgeInsets.all(15),
+                    height: 800,
+                    width: double.infinity,
+                    margin: EdgeInsets.all(15),
+                    color: Colors.white,
+                    child: Column(
+                      children: [
+                        Expanded(
+                          flex: 4,
+                          child:Image.network(Urls.apiServerBaseUrl+product['url']),
+                          // CachedNetworkImage(
+                          //   imageUrl: Urls.apiServerBaseUrl + product['url']??'',
+                          //   placeholder: (context, url) =>
+                          //       CircularProgressIndicator(),
+                          //   // errorWidget: (context, url, error) => Icon(Icons.error,color: Colors.white,),
+                          //   fit: BoxFit.cover,
+                          // ),
+                        ),
+                        Expanded(
+                          flex: 3,
+                            child: Text("Name:${product['name']}")),
+                        Expanded(
+                          flex: 1,
+                            child: Text("Price:${product['price']}")),
+                        // Text('${product['stock_quantity']}')
+                      ],
+                    ),
+                  );
+                },
+                itemCount: controler.productList.value.length,
+              ),
+        ))
+        // Obx(() => ListView.builder(
+        //   itemBuilder: (context,index){
+        //     var product =controler.productList.value[index];
+        //     return ListTile(
+        //       title:SizedBox(
+        //         height: 100,
+        //         width: double.infinity,
+        //         child: CachedNetworkImage(
+        //           imageUrl: Urls.apiServerBaseUrl+ product['url'],
+        //           placeholder: (context, url) => CircularProgressIndicator(),
+        //           errorWidget: (context, url, error) => Icon(Icons.error),
+        //         ),
+        //       ),
+        //       // title: Text(product['url']),
+        //       subtitle: Text(product['name']),
+        //     );
+        //   },
+        //   itemCount: controler.productList.value.length,
+        // ),),
+        );
   }
 }
