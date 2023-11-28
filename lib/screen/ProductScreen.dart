@@ -8,7 +8,7 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import '../controller/product_controlers.dart';
 
 class ProductScreen extends StatelessWidget {
-  ProductScreen({super.key});
+  ProductScreen(data, {super.key});
 
   var controler = Get.put(ProductController());
 
