@@ -77,7 +77,9 @@ class MyProduceController extends GetxController {
 
       if (response.statusCode == 200) {
         Map<String,dynamic> productsData = jsonDecode(response.body);
-        print("Product fetch successful $productsData");
+        // print("Product fetch successful $productsData");
+        myProducelist.value = productsData["data"];
+
       } else {
         print("Failed to fetch products. Status code: ${response.statusCode}");
       }
