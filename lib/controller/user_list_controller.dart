@@ -57,7 +57,6 @@ import '../constant/endpoint.dart';
 import '../constant/urls.dart';
 class UserController extends GetxController{
   var userlist = [].obs;
-  // RxBool isLoading = false.obs;
 
 
   @override

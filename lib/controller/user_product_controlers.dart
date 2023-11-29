@@ -5,8 +5,8 @@ import 'package:http/http.dart' as http;
 
 import '../constant/endpoint.dart';
 import '../constant/urls.dart';
-class ProductController extends GetxController{
-  var productList = [].obs;
+class UserProductController extends GetxController{
+  var userProductList = [].obs;
   // RxBool isLoading = false.obs;
 
 
@@ -23,7 +23,7 @@ class ProductController extends GetxController{
 
       if(response.statusCode == 200){
         Map <String,dynamic>productsData = jsonDecode(response.body);
-        productList.value = productsData["data"];
+        userProductList.value = productsData["data"];
         // print("product fetch successful $products");
       }
 
