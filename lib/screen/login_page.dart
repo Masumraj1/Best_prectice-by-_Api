@@ -237,167 +237,143 @@ class _LoginPageState extends State<LoginPage> {
         debugShowCheckedModeBanner: false,
         home: Scaffold(
           resizeToAvoidBottomInset: false,
-          body: Form(
-            key: _formkey,
-            child: Column(
-              children: [
-                SafeArea(
-                  child: Center(
-                      child: Image.asset(
-                    "assets/login.png",
-                    fit: BoxFit.cover,
+          body: Column(
+            children: [
+              SafeArea(
+                child: Center(
+                    child: Image.asset(
+                  "assets/login.png",
+                  fit: BoxFit.cover,
+                )),
+              ),
+              SizedBox(
+                  height: 100,
+                  child: Text(
+                    "Welcome ",
+                    style: TextStyle(
+                        fontSize: 35,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0XFF431c53)),
                   )),
+              Container(
+                margin: EdgeInsets.all(20),
+                child: TextFormField(
+                  controller: emailcontroller,
+                  decoration: InputDecoration(
+                    labelText: 'User_Gmail',
+                    labelStyle: TextStyle(fontSize: 16),
+                    border: OutlineInputBorder(),
+                    // suffix: Text("@gmail.com"),
+                  ),
+
+                  keyboardType: TextInputType.name,
                 ),
-                SizedBox(
-                    height: 100,
-                    child: Text(
-                      "Welcome ",
-                      style: TextStyle(
-                          fontSize: 35,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0XFF431c53)),
-                    )),
-                Container(
-                  margin: EdgeInsets.all(20),
-                  child: TextFormField(
-                    controller: emailcontroller,
-                    decoration: InputDecoration(
-                      labelText: 'User_Gmail',
+              ),
+              Container(
+                margin: EdgeInsets.all(20),
+                child: TextFormField(
+                  controller: passwordcontroller,
+                  decoration: InputDecoration(
+                      labelText: 'User Password',
+                      hintText: "Enter Your password",
                       labelStyle: TextStyle(fontSize: 16),
                       border: OutlineInputBorder(),
-                      // suffix: Text("@gmail.com"),
-                    ),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "Username cannot be empty";
-                      }
-                      return null;
-                    },
-                    keyboardType: TextInputType.name,
-                  ),
+                      suffixIcon: Icon(Icons.chevron_right)),
+
+                  keyboardType: TextInputType.name,
                 ),
-                Container(
-                  margin: EdgeInsets.all(20),
-                  child: TextFormField(
-                    controller: passwordcontroller,
-                    decoration: InputDecoration(
-                        labelText: 'User Password',
-                        hintText: "Enter Your password",
-                        labelStyle: TextStyle(fontSize: 16),
-                        border: OutlineInputBorder(),
-                        suffixIcon: Icon(Icons.chevron_right)),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "Password cannot be empty";
-                      } else {}
-                    },
-                    obscureText: true,
-                    obscuringCharacter: "*",
-                    keyboardType: TextInputType.name,
-                  ),
-                ),
-                Align(
-                    alignment: Alignment.centerRight,
-                    child: TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => const ForgotScreen()),
-                          );
-                        }, child: Text('Forgot Password?'))),
-                InkWell(
-                  onTap: () {
-                    login(emailcontroller.text.toString(),
-                        passwordcontroller.text.toString());
-                  },
-                  child: Container(
-                    height: 50,
-                    width: 200,
-                    alignment: Alignment.center,
-                    child: Text(
-                            "Login",
-                            style: TextStyle(fontSize: 20,color: Colors.black),
-                          ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      color: Colors.purple,
-                    ),
-                  ),
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                        flex: 1,
-                        child: Text(
-                          'Dont have account? ',
-                          style: TextStyle(color: Colors.black,fontSize: 18),
-                        )),
-                    Expanded(
-                        flex: 1,
-                        child: TextButton(
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => const SignUp()),
-                              );
-                            },
-                            child: Text(
-                              'Create a new account',
-                              style:
-                                  TextStyle(fontSize: 16, color: Colors.purple,fontWeight: FontWeight.bold),
-                            )))
-                  ],
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Row(
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: InkWell(
-                          onTap: (){},
-                          child: Container(
-                            height: 80,
-                            child: Image.asset('assets/google.png'),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child:
-                        InkWell(
-                          onTap: (){},
-                          child: Container(
-                               height: 50,
-                            child: Image.asset('assets/facebook.png'),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: InkWell(
-                          onTap: (){},
-                          child: Container(
-                            height: 50,
-                            width: double.infinity,
-                            child: Image.asset('assets/twitter.png'),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
+              ),
+              Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const ForgotScreen()),
+                        );
+                      },
+                      child: Text('Forgot Password?'))),
+                ElevatedButton(onPressed: (){
+                  login(emailcontroller.text.toString(),
+                    passwordcontroller.text.toString(), );
+                },
+                    child: Text('Login',style: TextStyle(fontSize: 30),)),
+              Row(
+                children: [
+                  Expanded(
+                      flex: 1,
+                      child: Text(
+                        'Dont have account? ',
+                        style: TextStyle(color: Colors.black, fontSize: 18),
+                      )),
+                  Expanded(
+                      flex: 1,
+                      child: TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>  SignUp()),
+                            );
+                          },
+                          child: Text(
+                            'Create a new account',
+                            style: TextStyle(
+                                fontSize: 16,
+                                color: Colors.purple,
+                                fontWeight: FontWeight.bold),
+                          )))
+                ],
+              ),
+              // Expanded(
+              //   flex: 1,
+              //   child: Row(
+              //     children: [
+                    // Expanded(
+                    //   flex: 1,
+                    //   child: InkWell(
+                    //     onTap: () {},
+                    //     child: Container(
+                    //       height: 80,
+                    //       child: Image.asset('assets/google.png'),
+                    //       decoration: BoxDecoration(
+                    //         borderRadius: BorderRadius.circular(15),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                    // Expanded(
+                    //   flex: 1,
+                    //   child: InkWell(
+                    //     onTap: () {},
+                    //     child: Container(
+                    //       height: 50,
+                    //       child: Image.asset('assets/facebook.png'),
+                    //       decoration: BoxDecoration(
+                    //         borderRadius: BorderRadius.circular(15),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                    // Expanded(
+                    //   flex: 1,
+                    //   child: InkWell(
+                    //     onTap: () {},
+                    //     child: Container(
+                    //       height: 50,
+                    //       width: double.infinity,
+                    //       child: Image.asset('assets/twitter.png'),
+                    //       decoration: BoxDecoration(
+                    //         borderRadius: BorderRadius.circular(15),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+              //     ],
+              //   ),
+              // )
+            ],
           ),
         ));
   }
